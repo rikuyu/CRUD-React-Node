@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>MySQL + Express</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1>野菜</h1>
+      <div>
+        <ul class="table-body">
+          <% vegetables.forEach((item) => { %>
+          <li>
+            <div class="item-data">
+              <span><%= item.id %></span>
+              <span><%= item.name %></span>
+              <span><%= item.color %></span>
+            </div>
+          </li>
+          <% }); %>
+        </ul>
+      </div>
+    </div>
+  </body>
+</html>
