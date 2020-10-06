@@ -5,40 +5,62 @@ const cors = require("cors");
 
 const app = express();
 
-// app.use(express.urlencoded({ extended: false }));
-
-const connection = mysql.createConnection({
+const connection = mysql.createPool({
   host: "localhost",
   user: "root",
   password: "12345Kobayashi",
   database: "node_items",
 });
 
-// connection.connect();
-
-app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get("/", (req, res) => {
-  connection.query("SELECT * FROM vegetables", (error, results) => {
-    // if (error) throw error;
-    res.render("index.ejs", { vegetables: results });
+// データの取得
+app.get("/get", (req, res) => {
+  const sqlSelect = "SELECT * FROM vegetables";
+  connection.query(sqlSelect, (error, results) => {
+    res.send(results);
+    console.log(results);
   });
 });
 
-app.post("/api/insert", (req, res) => {
+// データの挿入
+app.post("/insert", (req, res) => {
   const vegeId = req.body.id;
   const vegeName = req.body.name;
   const vegeColor = req.body.color;
 
+  const sqlInsert = "INSERT INTO vegetables(id, name, color) VALUES (?, ?, ?)";
+
   connection.query(
-    "INSERT INTO vegetables(id, name, color) VALUES (?, ?, ?)",
+    sqlInsert,
     [vegeId, vegeName, vegeColor],
     (error, results) => {
-      console.log(result);
+      console.log("エラー：" + error);
     }
   );
+});
+// データの削除
+app.delete("/delete/:id", (req, res) => {
+  const id = req.params.id;
+  const sqlDelete = "DELETE FROM vegetables WHERE id = ?";
+
+  connection.query(sqlDelete, id, (error, reslts) => {
+    console.log(error);
+  });
+});
+// データの更新
+app.put("/update", (req, res) => {
+  const id = req.body.id;
+  const name = req.body.name;
+  const color = req.body.color;
+
+  const sqlUpdate = "UPDATE vegetables SET name = ?, color = ? WHERE id = ?";
+
+  connection.query(sqlUpdate, [name, color, id], (error, reslts) => {
+    console.log(error);
+  });
 });
 
 app.listen(3001, () => {

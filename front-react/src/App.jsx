@@ -1,5 +1,4 @@
 import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import Form from "./Components/Form";
 
@@ -7,6 +6,9 @@ function App() {
   return (
     <div className="App">
       CRUD Application
+      <br />
+      <br />
+      野菜
       <Form />
     </div>
   );
