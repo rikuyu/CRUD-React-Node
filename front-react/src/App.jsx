@@ -7,7 +7,6 @@ function App() {
     <div className="App">
       CRUD Application
       <br />
-      <br />
       野菜
       <Form />
     </div>

@@ -32,8 +32,8 @@ export default function Form() {
     });
   };
 
-  const handleDelete = (id) => {
-    Axios.delete(`http://localhost:3001/delete/${id}`);
+  const handleDelete = (vegeId) => {
+    Axios.delete(`http://localhost:3001/delete/${vegeId}`);
   };
 
   const handleUpdate = (vegeId) => {
@@ -61,6 +61,7 @@ export default function Form() {
             }}
           />
         </div>
+        <br />
         <div className="form-group">
           <label for="name">Name</label>
           <input
@@ -73,6 +74,7 @@ export default function Form() {
             }}
           />
         </div>
+        <br />
         <div className="form-group">
           <label for="color">Color</label>
           <input

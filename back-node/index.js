@@ -2,19 +2,20 @@ const express = require("express");
 const mysql = require("mysql");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+require("dotenv").config();
 
 const app = express();
-
-const connection = mysql.createPool({
-  host: "localhost",
-  user: "root",
-  password: "12345Kobayashi",
-  database: "node_items",
-});
 
 app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+const connection = mysql.createPool({
+  host: "localhost",
+  user: "root",
+  password: process.env.MYSQL_PASSWORD,
+  database: "node_items",
+});
 
 // データの取得
 app.get("/get", (req, res) => {
